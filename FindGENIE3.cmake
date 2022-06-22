@@ -1,13 +1,19 @@
 if(NOT TARGET GENIE3::All)
 
+  find_package(GENIEVersion)
+  if(NOT GENIEVersion_FOUND)
+    SET(GENIE3_FOUND FALSE)
+    return()
+  endif()
+
+  include(NuHepMCUtils)
+  EnsureVarOrEnvSet(GENIE GENIE)
   EnsureVarOrEnvSet(GENIE_REWEIGHT GENIE_REWEIGHT)
 
   set(GENIE_REWEIGHT_FOUND FALSE)
   if("${GENIE_REWEIGHT}" STREQUAL "GENIE_REWEIGHT-NOTFOUND")
     cmessage(STATUS "GENIE_REWEIGHT environment variable is not defined, assuming no GENIE_REWEIGHT build")
   endif()
-
-  include(FindPackageHandleStandardArgs)
 
   find_path(GENIE_INC_DIR
     NAMES Framework/GHEP/GHepRecord.h
@@ -17,6 +23,7 @@ if(NOT TARGET GENIE3::All)
     NAMES libGFwGHEP.so
     PATHS ${GENIE}/lib)
 
+  include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(GENIE3
     REQUIRED_VARS 
       GENIE 
@@ -26,6 +33,12 @@ if(NOT TARGET GENIE3::All)
   )
 
   if(GENIE3_FOUND)
+
+    find_package(GENIEDependencies)
+    if(NOT GENIEDependencies_FOUND)
+      SET(GENIE3_FOUND FALSE)
+      return()
+    endif()
 
     include(ParseConfigApps)
 

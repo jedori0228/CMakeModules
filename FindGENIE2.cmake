@@ -1,6 +1,13 @@
 if(NOT TARGET GENIE2::All)
 
-  include(FindPackageHandleStandardArgs)
+  find_package(GENIEVersion)
+  if(NOT GENIEVersion_FOUND)
+    SET(GENIE2_FOUND FALSE)
+    return()
+  endif()
+
+  include(NuHepMCUtils)
+  EnsureVarOrEnvSet(GENIE GENIE)
 
   find_path(GENIE_INC_DIR
     NAMES EVGCore/EventRecord.h
@@ -10,6 +17,7 @@ if(NOT TARGET GENIE2::All)
     NAMES libGEVGCore.so
     PATHS ${GENIE}/lib)
 
+  include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(GENIE2
     REQUIRED_VARS 
       GENIE 
@@ -19,6 +27,11 @@ if(NOT TARGET GENIE2::All)
   )
 
   if(GENIE2_FOUND)
+    find_package(GENIEDependencies)
+    if(NOT GENIEDependencies_FOUND)
+      SET(GENIE2_FOUND FALSE)
+      return()
+    endif()
 
     include(ParseConfigApps)
 

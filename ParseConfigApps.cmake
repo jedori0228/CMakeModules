@@ -1,3 +1,5 @@
+include(CMessage)
+
 if(NOT COMMAND GetFirstMatchingDelimitedArg)
 function(GetFirstMatchingDelimitedArg)
   set(options ALLOW_FAIL)

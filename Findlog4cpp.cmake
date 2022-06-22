@@ -1,3 +1,6 @@
+include(CMessage)
+include(ParseConfigApps)
+
 if(NOT TARGET log4cpp::log4cpp)
   EnsureVarOrEnvSet(LOG4CPP_ENV_INC LOG4CPP_INC)
   if("${LOG4CPP_ENV_INC}" STREQUAL "LOG4CPP_ENV_INC-NOTFOUND")
