@@ -1,3 +1,5 @@
+if(NOT TARGET GENIE::All)
+  
 cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
 # This will define the following variables
 #
@@ -66,4 +68,6 @@ endif()
 
 if(GENIE_FOUND)
 	target_link_libraries(GeneratorCompileDependencies INTERFACE GENIE::All)
+endif()
+
 endif()
