@@ -7,18 +7,11 @@ if(NOT TARGET GENIE3::All)
   endif()
 
   include(NuHepMCUtils)
-  EnsureVarOrEnvSet(GENIE GENIE)
   EnsureVarOrEnvSet(GENIE_REWEIGHT GENIE_REWEIGHT)
 
   set(GENIE_REWEIGHT_FOUND FALSE)
   if("${GENIE_REWEIGHT}" STREQUAL "GENIE_REWEIGHT-NOTFOUND")
     cmessage(STATUS "GENIE_REWEIGHT environment variable is not defined, assuming no GENIE_REWEIGHT build")
-  endif()
-
-  if("${GENIE}" STREQUAL "GENIE-NOTFOUND")
-    cmessage(STATUS "GENIE environment variable is not defined, assuming no GENIE build")
-    SET(GENIE3_FOUND FALSE)
-    return()
   endif()
 
   find_path(GENIE_INC_DIR
