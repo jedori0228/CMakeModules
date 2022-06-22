@@ -9,6 +9,12 @@ if(NOT TARGET GENIE2::All)
   include(NuHepMCUtils)
   EnsureVarOrEnvSet(GENIE GENIE)
 
+  if("${GENIE}" STREQUAL "GENIE-NOTFOUND")
+    cmessage(STATUS "GENIE environment variable is not defined, assuming no GENIE build")
+    SET(GENIE2_FOUND FALSE)
+    return()
+  endif()
+
   find_path(GENIE_INC_DIR
     NAMES EVGCore/EventRecord.h
     PATHS ${GENIE}/include/GENIE)

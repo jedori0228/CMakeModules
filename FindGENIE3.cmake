@@ -15,6 +15,12 @@ if(NOT TARGET GENIE3::All)
     cmessage(STATUS "GENIE_REWEIGHT environment variable is not defined, assuming no GENIE_REWEIGHT build")
   endif()
 
+  if("${GENIE}" STREQUAL "GENIE-NOTFOUND")
+    cmessage(STATUS "GENIE environment variable is not defined, assuming no GENIE build")
+    SET(GENIE3_FOUND FALSE)
+    return()
+  endif()
+
   find_path(GENIE_INC_DIR
     NAMES Framework/GHEP/GHepRecord.h
     PATHS ${GENIE}/include/GENIE)
