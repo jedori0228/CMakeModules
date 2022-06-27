@@ -1,6 +1,19 @@
-find_program(NEUTCONFIG NAMES neut-config)
+if(NOT TARGET NEUT::All)
 
-set(NEUT_BUILTIN_FILL_NEUT_COMMONS FALSE)
+cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
+
+# This will define the following variables
+#
+#    NEUT_FOUND
+#    NEUTReWeight_ENABLED
+#    NEUTReWeight_LEGACY_API_ENABLED
+#
+# This will declare the following imported targets on successful completion
+#
+#    NEUT::All
+#
+
+find_program(NEUTCONFIG NAMES neut-config)
 
 set(NEUTReWeight_ENABLED FALSE)
 set(NEUTReWeight_LEGACY_API_ENABLED FALSE)
@@ -15,25 +28,25 @@ if(NOT "${NEUTCONFIG}x" STREQUAL "NEUTCONFIG-NOTFOUNDx")
   if(NEUT_CONFIG_VERSION VERSION_LESS 5.5.0)
     include(FindNEUTConfigLegacy)
 
-    if(NEUT_FOUND)
-      target_link_libraries(GeneratorCompileDependencies INTERFACE NEUT::ReWeight)
-    endif()
+    add_library(NEUT::All INTERFACE IMPORTED)
+    set_target_properties(NEUT::All PROPERTIES
+      INTERFACE_LINK_LIBRARIES NEUT::ReWeight)
+
   else()
     include(CMakeFindDependencyMacro)
     find_package(NEUT)
 
     if(NEUT_FOUND)
-      add_library(NUISANCENEUT INTERFACE)
+      add_library(NEUT::All INTERFACE IMPORTED)
       #Any additional target options that we want to attach to the NEUT target can go here.
       string(REPLACE "." "" NEUT_SINGLE_VERSION ${NEUT_VERSION})
-      set_target_properties(NUISANCENEUT PROPERTIES 
+      set_target_properties(NEUT::All PROPERTIES 
         INTERFACE_COMPILE_OPTIONS "-DNEUT_ENABLED;-DNEUT_VERSION=${NEUT_SINGLE_VERSION};-DNEUTReWeight_ENABLED"
         INTERFACE_LINK_OPTIONS "-Wl,--allow-multiple-definition"
         INTERFACE_LINK_LIBRARIES NEUT::ReWeight)
 
       set(NEUTReWeight_ENABLED TRUE)
 
-      target_link_libraries(GeneratorCompileDependencies INTERFACE NUISANCENEUT)
     endif()
   endif()
 else()
@@ -70,8 +83,10 @@ else()
     
   endif()
 
-  if(NEUT_FOUND)
-    target_link_libraries(GeneratorCompileDependencies INTERFACE NEUT::Includes)
-    target_link_libraries(GeneratorLinkDependencies INTERFACE NEUT::ReWeight)
-  endif()
+  add_library(NEUT::All INTERFACE IMPORTED)
+  set_target_properties(NEUT::All PROPERTIES
+      INTERFACE_LINK_LIBRARIES NEUT::ReWeight)
+
+endif()
+
 endif()

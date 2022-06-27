@@ -118,7 +118,7 @@ if(NOT TARGET ROOT::ROOT)
   
   cmessage(STATUS "Built ROOT::ROOT Imported target")
   cmessage(STATUS "        ROOT_CXX_STANDARD: ${ROOT_CXX_STANDARD}")
-  cmessage(STATUS "        ROOT_INCLUDE_DIRS: ${ROOT_INCLUDE_DIRS}: ")
+  cmessage(STATUS "        ROOT_INCLUDE_DIRS: ${ROOT_INCLUDE_DIRS}")
   cmessage(STATUS "        ROOT_CXX_FLAGS: ${ROOT_CXX_FLAGS}")
   cmessage(STATUS "        ROOT_LIBRARIES: ${ROOT_LIBRARIES}")
   cmessage(STATUS "        ROOT_CONFIG_VERSION: ${ROOT_CONFIG_VERSION}")

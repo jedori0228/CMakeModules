@@ -18,7 +18,6 @@ cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
 #    GENIE::All
 #
 
-
 set(GENIEReWeight_ENABLED FALSE)
 
 set(GENIE2_XSECEMPMEC_ENABLED FALSE)
@@ -83,10 +82,6 @@ if(NOT GENIE_FOUND)
         INTERFACE_LINK_LIBRARIES GENIE2::All
     )
   endif()
-endif()
-
-if(GENIE_FOUND)
-	target_link_libraries(GeneratorCompileDependencies INTERFACE GENIE::All)
 endif()
 
 endif()
