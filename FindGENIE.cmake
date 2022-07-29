@@ -5,12 +5,15 @@ cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
 #
 #    GENIE_FOUND
 #    GENIEReWeight_ENABLED
-#    GENIE2_FOUND
-#    GENIE3_FOUND
 #
+#    GENIE v2-specific
+#    -----------------
+#    GENIE2_FOUND
 #    GENIE2_XSECEMPMEC_ENABLED
 #
-#    GENIE3_API_ENABLED
+#    GENIE v3-specific
+#    -----------------
+#    GENIE3_FOUND
 #    GENIE3_XSECMEC_ENABLED
 #
 # This will declare the following imported targets on successful completion
@@ -18,11 +21,11 @@ cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
 #    GENIE::All
 #
 
+SET(GENIE_FOUND FALSE)
 set(GENIEReWeight_ENABLED FALSE)
 
 set(GENIE2_XSECEMPMEC_ENABLED FALSE)
 
-set(GENIE3_API_ENABLED FALSE)
 set(GENIE3_XSECMEC_ENABLED FALSE)
 
 if(NOT DEFINED GENIE2_FOUND)

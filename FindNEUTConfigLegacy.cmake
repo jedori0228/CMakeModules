@@ -4,6 +4,7 @@ cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
 # This will define the following variables
 #
 #    NEUT_FOUND
+#    NEUTReWeight_ENABLED
 #
 # and the following imported targets
 #
@@ -74,7 +75,7 @@ if(NEUT_FOUND)
   endforeach()
 
   string(REGEX REPLACE "\([0-9]\)\.\([0-9]\)\.\([0-9]\).*" "\\1\\2\\3" NEUT_SINGLE_VERSION ${NEUT_VERSION})
-  LIST(APPEND NEUT_DEFINES -DNEUT_ENABLED -DNEUT_VERSION=${NEUT_SINGLE_VERSION} -DNEUTReWeight_ENABLED -DNEUTReWeight_LEGACY_API_ENABLED)
+  LIST(APPEND NEUT_DEFINES -DNEUT_ENABLED -DNEUT_VERSION=${NEUT_SINGLE_VERSION})
 
   if(EXISTS "${NEUT_ROOT}/src/neutclass/neutnucfsistep.so")
     LIST(APPEND NEUT_DEFINES -DNEUT_NUCFSI_ENABLED)
@@ -116,7 +117,6 @@ if(NEUT_FOUND)
   endif()
 
   set(NEUTReWeight_ENABLED TRUE)
-  set(NEUTReWeight_LEGACY_API_ENABLED TRUE)
 
 endif()
 

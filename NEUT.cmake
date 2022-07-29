@@ -6,7 +6,6 @@ cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
 #
 #    NEUT_FOUND
 #    NEUTReWeight_ENABLED
-#    NEUTReWeight_LEGACY_API_ENABLED
 #
 # This will declare the following imported targets on successful completion
 #
@@ -15,8 +14,8 @@ cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
 
 find_program(NEUTCONFIG NAMES neut-config)
 
+set(NEUT_FOUND FALSE)
 set(NEUTReWeight_ENABLED FALSE)
-set(NEUTReWeight_LEGACY_API_ENABLED FALSE)
 
 if(NOT "${NEUTCONFIG}x" STREQUAL "NEUTCONFIG-NOTFOUNDx")
   cmessage(STATUS "Found neut-config, using it to determine configuration.")
