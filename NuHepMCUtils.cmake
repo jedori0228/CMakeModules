@@ -33,6 +33,19 @@ function(EnsureVarOrEnvSet OUT_VARNAME VARNAME)
 endfunction()
 endif()
 
+if(NOT COMMAND EnsureVarSet)
+
+# If ${OUT_VARNAME} is defined and not empty, this is a no-op
+# If ${OUT_VARNAME} is undefiend or empty then set to DEFVAL
+function(EnsureVarSet OUT_VARNAME DEFVAL)
+
+  if(NOT DEFINED ${OUT_VARNAME} OR "${${OUT_VARNAME}}x" STREQUAL "x")
+    set(${OUT_VARNAME} ${DEFVAL} PARENT_SCOPE)
+  endif()
+
+endfunction()
+endif()
+
 if(NOT COMMAND dump_cmake_variables)
 function(dump_cmake_variables)
     get_cmake_property(_variableNames VARIABLES)
