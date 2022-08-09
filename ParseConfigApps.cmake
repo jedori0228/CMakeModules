@@ -3,7 +3,7 @@ include(CMessage)
 if(NOT COMMAND GetFirstMatchingDelimitedArg)
 function(GetFirstMatchingDelimitedArg)
   set(options ALLOW_FAIL)
-  set(oneValueArgs DELIMITER CONFIG_APP OUTPUT_VARIABLE)
+  set(oneValueArgs DELIMITER CONFIG_APP RESULT_VARIABLE OUTPUT_VARIABLE)
   set(multiValueArgs ARGS)
   cmake_parse_arguments(OPTS 
                       "${options}" 
@@ -21,7 +21,14 @@ function(GetFirstMatchingDelimitedArg)
   find_program(CONFIG_APP_LOCATION ${OPTS_CONFIG_APP})
   if(NOT CONFIG_APP_LOCATION STREQUAL "CONFIG_APP_LOCATION-NOTFOUND")
     execute_process (COMMAND ${CONFIG_APP_LOCATION}
-      ${OPTS_ARGS} OUTPUT_VARIABLE CONFIGAPP_RESPONSE_RAW OUTPUT_STRIP_TRAILING_WHITESPACE)
+      ${OPTS_ARGS} 
+      OUTPUT_VARIABLE CONFIGAPP_RESPONSE_RAW
+      RESULT_VARIABLE RETURN_VALUE
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+    
+    if(DEFINED OPTS_RESULT_VARIABLE)
+      set(${OPTS_RESULT_VARIABLE} ${RETURN_VALUE} PARENT_SCOPE)
+    endif()
 
     if(CONFIGAPP_RESPONSE_RAW STREQUAL "")
       if(OPTS_ALLOW_FAIL)
@@ -51,7 +58,7 @@ endif()
 if(NOT COMMAND GetAllMatchingDelimitedArg)
 function(GetAllMatchingDelimitedArg)
   set(options ALLOW_FAIL)
-  set(oneValueArgs DELIMITER CONFIG_APP OUTPUT_VARIABLE)
+  set(oneValueArgs DELIMITER CONFIG_APP RESULT_VARIABLE OUTPUT_VARIABLE)
   set(multiValueArgs ARGS)
   cmake_parse_arguments(OPTS 
                       "${options}" 
@@ -69,7 +76,14 @@ function(GetAllMatchingDelimitedArg)
   find_program(CONFIG_APP_LOCATION ${OPTS_CONFIG_APP})
   if(NOT CONFIG_APP_LOCATION STREQUAL "CONFIG_APP_LOCATION-NOTFOUND")
     execute_process (COMMAND ${CONFIG_APP_LOCATION}
-      ${OPTS_ARGS} OUTPUT_VARIABLE CONFIGAPP_RESPONSE_RAW OUTPUT_STRIP_TRAILING_WHITESPACE)
+      ${OPTS_ARGS} 
+      OUTPUT_VARIABLE CONFIGAPP_RESPONSE_RAW
+      RESULT_VARIABLE RETURN_VALUE
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+    if(DEFINED OPTS_RESULT_VARIABLE)
+      set(${OPTS_RESULT_VARIABLE} ${RETURN_VALUE} PARENT_SCOPE)
+    endif()
 
     string(REPLACE " " ";" CONFIGAPP_RESPONSE_LIST "${CONFIGAPP_RESPONSE_RAW}")
 
@@ -96,7 +110,7 @@ endif()
 if(NOT COMMAND GetLibDir)
 function(GetLibDir)
   set(options ALLOW_FAIL)
-  set(oneValueArgs CONFIG_APP OUTPUT_VARIABLE)
+  set(oneValueArgs CONFIG_APP RESULT_VARIABLE OUTPUT_VARIABLE)
   set(multiValueArgs ARGS)
   cmake_parse_arguments(OPTS 
                       "${options}" 
@@ -120,9 +134,13 @@ function(GetLibDir)
     CONFIG_APP ${OPTS_CONFIG_APP}
     ARGS ${OPTS_ARGS}
     OUTPUT_VARIABLE MATCHING_DIR
+    RESULT_VARIABLE RETURN_VALUE
     ${ALLOW_FAIL})
 
   set(${OPTS_OUTPUT_VARIABLE} ${MATCHING_DIR} PARENT_SCOPE)
+  if(DEFINED OPTS_RESULT_VARIABLE)
+    set(${OPTS_RESULT_VARIABLE} ${RETURN_VALUE} PARENT_SCOPE)
+  endif()
 endfunction(GetLibDir)
 endif()
 
@@ -130,7 +148,7 @@ endif()
 if(NOT COMMAND GetIncDir)
 function(GetIncDir)
   set(options ALLOW_FAIL)
-  set(oneValueArgs CONFIG_APP OUTPUT_VARIABLE)
+  set(oneValueArgs CONFIG_APP RESULT_VARIABLE OUTPUT_VARIABLE)
   set(multiValueArgs ARGS)
   cmake_parse_arguments(OPTS 
                       "${options}" 
@@ -155,9 +173,13 @@ function(GetIncDir)
     CONFIG_APP ${OPTS_CONFIG_APP}
     ARGS ${OPTS_ARGS}
     OUTPUT_VARIABLE MATCHING_DIR
+    RESULT_VARIABLE RETURN_VALUE
     ${ALLOW_FAIL})
 
   set(${OPTS_OUTPUT_VARIABLE} ${MATCHING_DIR} PARENT_SCOPE)
+  if(DEFINED OPTS_RESULT_VARIABLE)
+    set(${OPTS_RESULT_VARIABLE} ${RETURN_VALUE} PARENT_SCOPE)
+  endif()
 endfunction(GetIncDir)
 endif()
 
@@ -165,7 +187,7 @@ endif()
 if(NOT COMMAND GetLibDirs)
 function(GetLibDirs)
   set(options ALLOW_FAIL)
-  set(oneValueArgs CONFIG_APP OUTPUT_VARIABLE)
+  set(oneValueArgs CONFIG_APP RESULT_VARIABLE OUTPUT_VARIABLE)
   set(multiValueArgs ARGS)
   cmake_parse_arguments(OPTS 
                       "${options}" 
@@ -189,9 +211,13 @@ function(GetLibDirs)
     CONFIG_APP ${OPTS_CONFIG_APP}
     ARGS ${OPTS_ARGS}
     OUTPUT_VARIABLE MATCHING_DIR
+    RESULT_VARIABLE RETURN_VALUE
     ${ALLOW_FAIL})
 
   set(${OPTS_OUTPUT_VARIABLE} ${MATCHING_DIR} PARENT_SCOPE)
+  if(DEFINED OPTS_RESULT_VARIABLE)
+    set(${OPTS_RESULT_VARIABLE} ${RETURN_VALUE} PARENT_SCOPE)
+  endif()
 endfunction(GetLibDirs)
 endif()
 
@@ -199,7 +225,7 @@ endif()
 if(NOT COMMAND GetLibs)
 function(GetLibs)
   set(options ALLOW_FAIL)
-  set(oneValueArgs CONFIG_APP OUTPUT_VARIABLE)
+  set(oneValueArgs CONFIG_APP RESULT_VARIABLE OUTPUT_VARIABLE)
   set(multiValueArgs ARGS)
   cmake_parse_arguments(OPTS 
                       "${options}" 
@@ -223,9 +249,13 @@ function(GetLibs)
     CONFIG_APP ${OPTS_CONFIG_APP}
     ARGS ${OPTS_ARGS}
     OUTPUT_VARIABLE MATCHING_DIR
+    RESULT_VARIABLE RETURN_VALUE
     ${ALLOW_FAIL})
 
   set(${OPTS_OUTPUT_VARIABLE} ${MATCHING_DIR} PARENT_SCOPE)
+  if(DEFINED OPTS_RESULT_VARIABLE)
+    set(${OPTS_RESULT_VARIABLE} ${RETURN_VALUE} PARENT_SCOPE)
+  endif()
 endfunction(GetLibs)
 endif()
 
@@ -233,7 +263,7 @@ endif()
 if(NOT COMMAND GetIncDirs)
 function(GetIncDirs)
   set(options ALLOW_FAIL)
-  set(oneValueArgs CONFIG_APP OUTPUT_VARIABLE)
+  set(oneValueArgs CONFIG_APP RESULT_VARIABLE OUTPUT_VARIABLE)
   set(multiValueArgs ARGS)
   cmake_parse_arguments(OPTS 
                       "${options}" 
@@ -258,9 +288,13 @@ function(GetIncDirs)
     CONFIG_APP ${OPTS_CONFIG_APP}
     ARGS ${OPTS_ARGS}
     OUTPUT_VARIABLE MATCHING_DIR
+    RESULT_VARIABLE RETURN_VALUE
     ${ALLOW_FAIL})
 
   set(${OPTS_OUTPUT_VARIABLE} ${MATCHING_DIR} PARENT_SCOPE)
+  if(DEFINED OPTS_RESULT_VARIABLE)
+    set(${OPTS_RESULT_VARIABLE} ${RETURN_VALUE} PARENT_SCOPE)
+  endif()
 endfunction(GetIncDirs)
 endif()
 

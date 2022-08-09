@@ -8,7 +8,7 @@ if(NOT TARGET GENIE2::All)
 
   find_path(GENIE_INC_DIR
     NAMES EVGCore/EventRecord.h
-    PATHS ${GENIE}/include/GENIE)
+    PATHS ${GENIE}/include/GENIE  ${GENIE}/src)
 
   find_path(GENIE_LIB_DIR
     NAMES libGEVGCore.so
@@ -32,9 +32,24 @@ if(NOT TARGET GENIE2::All)
 
     include(ParseConfigApps)
 
-    GetLibs(CONFIG_APP genie-config ARGS --libs OUTPUT_VARIABLE GENIE_LIBS)
+    GetLibs(CONFIG_APP genie-config ARGS --libs 
+      OUTPUT_VARIABLE GENIE_LIBS
+      RESULT_VARIABLE GENIECONFIG_RETVAL)
 
-    string(REGEX REPLACE "\([0-9]\)\.\([0-9]*\).*" "\\1\\2" GENIE_SINGLE_VERSION ${GENIE_VERSION})
+    #We can't use genie-config, try and build the list manually
+    if(NOT GENIECONFIG_RETVAL EQUAL 0)
+      file(GLOB GENIELIBLIST ${GENIE}/lib/lib*.so)
+      foreach(lib ${GENIELIBLIST})
+        get_filename_component(libname ${lib} NAME_WLE)
+        if (libname MATCHES "lib.*-[0-9]+\\.[0-9]+\\.[0-9]+")
+          continue()
+        endif()
+        string(REGEX REPLACE "lib(.*)" "\\1" name ${libname})
+        LIST(APPEND GENIE_LIBS ${name})
+      endforeach()
+    endif()
+
+    string(REGEX REPLACE "([0-9]*)\\.([0-9]*).*" "\\1\\2" GENIE_SINGLE_VERSION ${GENIE_VERSION})
     string(LENGTH "${GENIE_SINGLE_VERSION}" GENIE_SINGLE_VERSION_STRLEN)
     if(GENIE_SINGLE_VERSION_STRLEN LESS 3)
       string(APPEND GENIE_SINGLE_VERSION "0")
