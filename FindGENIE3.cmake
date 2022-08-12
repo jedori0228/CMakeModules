@@ -1,18 +1,18 @@
 if(NOT TARGET GENIE3::All)
 
+  include(NuHepMCUtils)
+
+  SET(GENIE3_FOUND FALSE)
+
+  EnsureVarSet(GENIE3_XSECMEC_ENABLED FALSE)
+  EnsureVarSet(GENIEReWeight_ENABLED FALSE)
+
   find_package(GENIEVersion)
   if(NOT GENIEVersion_FOUND)
-    SET(GENIE3_FOUND FALSE)
     return()
   endif()
 
-  include(NuHepMCUtils)
   EnsureVarOrEnvSet(GENIE_REWEIGHT GENIE_REWEIGHT)
-
-  set(GENIE_REWEIGHT_FOUND FALSE)
-  if("${GENIE_REWEIGHT}" STREQUAL "GENIE_REWEIGHT-NOTFOUND")
-    cmessage(STATUS "GENIE_REWEIGHT environment variable is not defined, assuming no GENIE_REWEIGHT build")
-  endif()
 
   find_path(GENIE_INC_DIR
     NAMES Framework/GHEP/GHepRecord.h

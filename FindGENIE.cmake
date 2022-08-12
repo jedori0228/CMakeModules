@@ -21,19 +21,10 @@ cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
 #    GENIE::All
 #
 
-EnsureVarOrEnvSet(GENIE GENIE)
-
-if("${GENIE}" STREQUAL "GENIE-NOTFOUND")
-  cmessage(FindGENIEVersion.cmake "GENIE environment variable is not defined, assuming no GENIE build")
-  return()
-endif()
 
 SET(GENIE_FOUND FALSE)
+
 EnsureVarSet(GENIEReWeight_ENABLED FALSE)
-
-EnsureVarSet(GENIE2_XSECEMPMEC_ENABLED FALSE)
-
-EnsureVarSet(GENIE3_XSECMEC_ENABLED FALSE)
 
 if(NOT DEFINED GENIE2_FOUND)
   set(GENIE2_FOUND FALSE)

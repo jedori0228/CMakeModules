@@ -1,8 +1,12 @@
 if(NOT TARGET GENIE2::All)
 
+  SET(GENIE2_FOUND FALSE)
+
+  EnsureVarSet(GENIE2_XSECEMPMEC_ENABLED FALSE)
+  EnsureVarSet(GENIEReWeight_ENABLED FALSE)
+
   find_package(GENIEVersion)
   if(NOT GENIEVersion_FOUND)
-    SET(GENIE2_FOUND FALSE)
     return()
   endif()
 

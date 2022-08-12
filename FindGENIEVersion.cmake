@@ -1,6 +1,12 @@
 include(CMessage)
 include(NuHepMCUtils)
 
+EnsureVarOrEnvSet(GENIE GENIE)
+if("${GENIE}" STREQUAL "GENIE-NOTFOUND")
+  cmessage(FindGENIEVersion.cmake "GENIE environment variable is not defined, assuming no GENIE build")
+  return()
+endif()
+
 if(NOT DEFINED GENIEVersion_FOUND OR NOT GENIEVersion_FOUND)
 
   SET(GENIEVersion_FOUND FALSE)
