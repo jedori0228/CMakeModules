@@ -24,14 +24,18 @@ if(NOT TARGET GENIE3::All)
     NAMES libGFwGHEP.so
     PATHS ${GENIE}/lib ${GENIE_LIB})
 
+  find_path(GENIE_RW_INC_DIR
+    NAMES RwFramework/GReWeight.h
+    PATHS ${GENIE_REWEIGHT}/src)
+
   include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(GENIE3
     REQUIRED_VARS 
-      GENIE 
-      GENIE_INC_DIR 
-      GENIE_LIB_DIR
+    GENIE 
+    GENIE_INC_DIR 
+    GENIE_LIB_DIR
     VERSION_VAR GENIE_VERSION
-  )
+    )
 
   if(GENIE3_FOUND)
 
@@ -65,7 +69,7 @@ if(NOT TARGET GENIE3::All)
     if(GENIE_SINGLE_VERSION_STRLEN LESS 3)
       string(APPEND GENIE_SINGLE_VERSION "0")
     endif()
-      
+
     LIST(APPEND GENIE_DEFINES -DGENIE_ENABLED -DGENIE_VERSION=${GENIE_SINGLE_VERSION})
 
     set(GENIEReWeight_ENABLED TRUE)
@@ -79,7 +83,7 @@ if(NOT TARGET GENIE3::All)
       endif()
     endforeach()
 
-    if(EXISTS ${GENIE_INC_DIR}/RwCalculators/GReWeightXSecMEC.h)
+    if(EXISTS ${GENIE_RW_INC_DIR}/RwCalculators/GReWeightXSecMEC.h)
       SET(GENIE3_XSECMEC_ENABLED TRUE)
     endif()
 
@@ -94,18 +98,18 @@ if(NOT TARGET GENIE3::All)
     cmessage(STATUS "              OPTIONS: GENIEReWeight: ${GENIEReWeight_ENABLED}, XSecMECReWeight: ${GENIE3_XSECMEC_ENABLED}")
     cmessage(STATUS " GENIE_SINGLE_VERSION: ${GENIE_SINGLE_VERSION}")
     cmessage(STATUS "        GENIE DEFINES: ${GENIE_DEFINES}")
-    cmessage(STATUS "       GENIE INC_DIRS: ${GENIE_INC_DIR}")
+    cmessage(STATUS "       GENIE INC_DIRS: ${GENIE_INC_DIR} ${GENIE_RW_INC_DIR}")
     cmessage(STATUS "       GENIE LIB_DIRS: ${GENIE_LIB_DIR}")
     cmessage(STATUS "           GENIE LIBS: ${GENIE_LIBS}")
     cmessage(STATUS "            DEPS LIBS: ${GENIE_DEP_LIBS}")
 
     add_library(GENIE3::All INTERFACE IMPORTED)
     set_target_properties(GENIE3::All PROPERTIES
-        INTERFACE_INCLUDE_DIRECTORIES "${GENIE_INC_DIR}"
-        INTERFACE_COMPILE_OPTIONS "${GENIE_DEFINES}"
-        INTERFACE_LINK_DIRECTORIES "${GENIE_LIB_DIR}"
-        INTERFACE_LINK_LIBRARIES "${GENIE_LIBS};${GENIE_DEP_LIBS}"
-    )
+      INTERFACE_INCLUDE_DIRECTORIES "${GENIE_INC_DIR};${GENIE_RW_INC_DIR}"
+      INTERFACE_COMPILE_OPTIONS "${GENIE_DEFINES}"
+      INTERFACE_LINK_DIRECTORIES "${GENIE_LIB_DIR}"
+      INTERFACE_LINK_LIBRARIES "${GENIE_LIBS};${GENIE_DEP_LIBS}"
+      )
 
   endif()
 
