@@ -13,6 +13,8 @@ if(NOT TARGET GENIE3::All)
   endif()
 
   EnsureVarOrEnvSet(GENIE_REWEIGHT GENIE_REWEIGHT)
+  # Needed for FNAL gpvms
+  EnsureVarOrEnvSet(GENIE_LIB GENIE_LIB)
 
   find_path(GENIE_INC_DIR
     NAMES Framework/GHEP/GHepRecord.h
@@ -20,7 +22,7 @@ if(NOT TARGET GENIE3::All)
 
   find_path(GENIE_LIB_DIR
     NAMES libGFwGHEP.so
-    PATHS ${GENIE}/lib)
+    PATHS ${GENIE}/lib ${GENIE_LIB})
 
   include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(GENIE3

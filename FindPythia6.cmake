@@ -4,10 +4,11 @@ if(NOT TARGET Pythia6::Pythia6)
 
   EnsureVarOrEnvSet(PYTHIA6 PYTHIA6)
   EnsureVarOrEnvSet(PYTHIA6_ENV_LIB_DIR PYTHIA6_LIB_DIR)
+  EnsureVarOrEnvSet(PYTHIA6_LIBRARY PYTHIA6_LIBRARY)
 
   find_path(PYTHIA6_LIB_DIR
   NAMES libPythia6.so
-  PATHS ${PYTHIA6} ${PYTHIA6_ENV_LIB_DIR})
+  PATHS ${PYTHIA6} ${PYTHIA6_ENV_LIB_DIR} ${PYTHIA6_LIBRARY})
 
   include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(Pythia6
