@@ -24,6 +24,10 @@ if(NOT TARGET GENIE3::All)
     NAMES libGFwGHEP.so
     PATHS ${GENIE}/lib ${GENIE_LIB})
 
+  find_path(GENIE_RW_LIB_DIR
+    NAMES libGRwIO.so
+    PATHS ${GENIE}/lib ${GENIE_LIB} ${GENIE_REWEIGHT}/lib)
+
   find_path(GENIE_RW_INC_DIR
     NAMES RwFramework/GReWeight.h
     PATHS ${GENIE_REWEIGHT}/src)
@@ -75,10 +79,10 @@ if(NOT TARGET GENIE3::All)
     set(GENIEReWeight_ENABLED TRUE)
     foreach(RWLIBNAME GRwClc GRwFwk GRwIO)
       LIST(REMOVE_ITEM GENIE_LIBS ${RWLIBNAME})
-      if(EXISTS ${GENIE_LIB_DIR}/lib${RWLIBNAME}.so)
+      if(EXISTS ${GENIE_RW_LIB_DIR}/lib${RWLIBNAME}.so)
         LIST(APPEND GENIE_LIBS ${RWLIBNAME})
       else()
-        cmessage(WARNING "Failed to find expected reweight library: ${GENIE_LIB_DIR}/lib${RWLIBNAME}.so disabling GENIE3 reweight.")
+        cmessage(WARNING "Failed to find expected reweight library: ${GENIE_RW_LIB_DIR}/lib${RWLIBNAME}.so disabling GENIE3 reweight.")
         set(GENIEReWeight_ENABLED FALSE)
       endif()
     endforeach()
@@ -100,14 +104,20 @@ if(NOT TARGET GENIE3::All)
     cmessage(STATUS "        GENIE DEFINES: ${GENIE_DEFINES}")
     cmessage(STATUS "       GENIE INC_DIRS: ${GENIE_INC_DIR} ${GENIE_RW_INC_DIR}")
     cmessage(STATUS "       GENIE LIB_DIRS: ${GENIE_LIB_DIR}")
+    cmessage(STATUS "    GENIE RW_LIB_DIRS: ${GENIE_RW_LIB_DIR}")
     cmessage(STATUS "           GENIE LIBS: ${GENIE_LIBS}")
     cmessage(STATUS "            DEPS LIBS: ${GENIE_DEP_LIBS}")
+
+    LIST(APPEND GENIE_ALL_LIB_DIRS ${GENIE_LIB_DIR})
+    if(GENIEReWeight_ENABLED)
+      LIST(APPEND GENIE_ALL_LIB_DIRS ${GENIE_RW_LIB_DIR})
+    endif()
 
     add_library(GENIE3::All INTERFACE IMPORTED)
     set_target_properties(GENIE3::All PROPERTIES
       INTERFACE_INCLUDE_DIRECTORIES "${GENIE_INC_DIR};${GENIE_RW_INC_DIR}"
       INTERFACE_COMPILE_OPTIONS "${GENIE_DEFINES}"
-      INTERFACE_LINK_DIRECTORIES "${GENIE_LIB_DIR}"
+      INTERFACE_LINK_DIRECTORIES "${GENIE_ALL_LIB_DIRS}"
       INTERFACE_LINK_LIBRARIES "${GENIE_LIBS};${GENIE_DEP_LIBS}"
       )
 

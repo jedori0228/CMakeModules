@@ -133,7 +133,7 @@ if(NOT DEFINED GENIEDependencies_FOUND OR NOT GENIEDependencies_FOUND)
     cmessage(STATUS "     GSL_LIB: ${GSL_LIB}")
 
     add_library(GSL::gslcblas INTERFACE IMPORTED)
-    set_target_properties(GSL::gsl PROPERTIES
+    set_target_properties(GSL::gslcblas PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES ${GSL_INC}
         INTERFACE_LINK_DIRECTORIES ${GSL_LIB}
         INTERFACE_LINK_LIBRARIES "gslcblas;m"
