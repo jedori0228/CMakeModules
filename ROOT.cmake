@@ -1,3 +1,5 @@
+include(CMessage)
+
 if(NOT DEFINED ROOT_FOUND)
   find_package(ROOT)
   if(DEFINED ROOT_USE_FILE AND NOT "${ROOT_USE_FILE}x" STREQUAL "x")
