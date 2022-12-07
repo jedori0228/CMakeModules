@@ -21,8 +21,8 @@ find_path(NEUT_INCLUDE_DIR
 )
 
 find_path(NEUT_LIB_DIR
-  NAMES libneutcore_5.4.0.a
-  PATHS ${NEUT_ROOT}/lib/Linux_pc/
+  NAMES libneutcore_${NEUT_VERSION}.a
+  PATHS ${NEUT_ROOT}/lib/Linux_pc/ ${NEUT_ROOT}/lib/
 )
 
 find_path(CERN_INCLUDE_DIR
