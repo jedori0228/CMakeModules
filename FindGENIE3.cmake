@@ -12,6 +12,8 @@ if(NOT TARGET GENIE3::All)
     return()
   endif()
 
+  find_package(ROOT 6 REQUIRED COMPONENTS EGPythia6)
+
   EnsureVarOrEnvSet(GENIE_REWEIGHT GENIE_REWEIGHT)
   # Needed for FNAL gpvms
   EnsureVarOrEnvSet(GENIE_LIB GENIE_LIB)
@@ -103,7 +105,7 @@ if(NOT TARGET GENIE3::All)
 
     #duplicate because CMake gets its grubby mitts on repeated -Wl,--start-group options
     SET(GENIE_LIBS "-Wl,--no-as-needed;${GENIE_LIBS};${GENIE_LIBS};-Wl,--as-needed")
-    SET(GENIE_DEP_LIBS EGPythia6 Pythia6::Pythia6 LHAPDF::LHAPDF log4cpp::log4cpp LibXml2::LibXml2 GSL::gsl)
+    SET(GENIE_DEP_LIBS ROOT::EGPythia6 ROOT::RIO ROOT::Core Pythia6::Pythia6 LHAPDF::LHAPDF log4cpp::log4cpp LibXml2::LibXml2 GSL::gsl)
 
     LIST(APPEND GENIE_ALL_INC_DIRS ${GENIE_INC_DIR})
     LIST(APPEND GENIE_ALL_LIB_DIRS ${GENIE_LIB_DIR})
