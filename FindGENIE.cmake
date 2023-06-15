@@ -24,6 +24,7 @@ cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
 
 SET(GENIE_FOUND FALSE)
 
+include(NuHepMCUtils)
 EnsureVarSet(GENIEReWeight_ENABLED FALSE)
 
 if(NOT DEFINED GENIE2_FOUND)
