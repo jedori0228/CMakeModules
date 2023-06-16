@@ -1,5 +1,7 @@
 if(NOT TARGET GENIE2::All)
 
+  include(NuHepMCUtils)
+
   SET(GENIE2_FOUND FALSE)
 
   EnsureVarSet(GENIE2_XSECEMPMEC_ENABLED FALSE)
