@@ -53,7 +53,7 @@ if(NOT TARGET GENIE3::All)
 
     include(ParseConfigApps)
 
-    GetLibs(CONFIG_APP genie-config ARGS --libs 
+    GetLibs(CONFIG_APP ${GENIE}/bin/genie-config ARGS --libs 
       OUTPUT_VARIABLE GENIE_LIBS
       RESULT_VARIABLE GENIECONFIG_RETVAL)
 
