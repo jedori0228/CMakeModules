@@ -32,7 +32,7 @@ if(NOT TARGET GENIE3::All)
 
   find_path(GENIE_RW_INC_DIR
     NAMES RwFramework/GReWeight.h
-    PATHS ${GENIE_REWEIGHT}/src)
+    PATHS ${GENIE}/include/GENIE ${GENIE_REWEIGHT}/src)
 
   include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(GENIE3

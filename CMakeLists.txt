@@ -24,7 +24,7 @@
 
 cmake_minimum_required (VERSION 3.14 FATAL_ERROR)
 
-project(CMakeModules VERSION 0.2.2)
+project(CMakeModules VERSION 0.2.4)
 
 if(CMAKE_INSTALL_PREFIX STREQUAL "" OR CMAKE_INSTALL_PREFIX STREQUAL
   "/usr/local")
