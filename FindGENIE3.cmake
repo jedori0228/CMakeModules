@@ -53,7 +53,13 @@ if(NOT TARGET GENIE3::All)
 
     include(ParseConfigApps)
 
-    GetLibs(CONFIG_APP ${GENIE}/bin/genie-config ARGS --libs 
+    if(EXISTS $ENV{GENIE}/bin)
+      SET(GENIE_BIN $ENV{GENIE}/bin)
+    elseif(EXISTS $ENV{GENIE_FQ_DIR}/bin)
+      SET(GENIE_BIN $ENV{GENIE_FQ_DIR}/bin)
+    endif()
+
+    GetLibs(CONFIG_APP ${GENIE_BIN}/genie-config ARGS --libs
       OUTPUT_VARIABLE GENIE_LIBS
       RESULT_VARIABLE GENIECONFIG_RETVAL)
 
@@ -116,6 +122,7 @@ if(NOT TARGET GENIE3::All)
 
     cmessage(STATUS "GENIE 3 (Version: ${GENIE_VERSION})")
     cmessage(STATUS "                GENIE: ${GENIE}")
+    cmessage(STATUS "            GENIE_BIN: ${GENIE_BIN}")
     cmessage(STATUS "       GENIE_REWEIGHT: ${GENIE_REWEIGHT}")
     cmessage(STATUS "              OPTIONS: GENIEReWeight: ${GENIEReWeight_ENABLED}, XSecMECReWeight: ${GENIE3_XSECMEC_ENABLED}")
     cmessage(STATUS " GENIE_SINGLE_VERSION: ${GENIE_SINGLE_VERSION}")
