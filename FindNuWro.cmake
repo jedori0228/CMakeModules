@@ -14,11 +14,11 @@ if(NOT TARGET NuWro::All)
 
   find_path(NuWro_INC_DIR
     NAMES dis/dis_cc.h
-    PATHS ${NUWRO}/src)
+    PATHS ${NUWRO}/include)
 
   find_path(NuWro_LIB_DIR
     NAMES event1.so
-    PATHS ${NUWRO}/bin)
+    PATHS ${NUWRO}/lib)
 
   find_package_handle_standard_args(NuWro
     REQUIRED_VARS 
