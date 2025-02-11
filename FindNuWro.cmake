@@ -13,11 +13,11 @@ if(NOT TARGET NuWro::All)
   include(FindPackageHandleStandardArgs)
 
   find_path(NuWro_INC_DIR
-    NAMES dis/dis_cc.h
+    NAMES dis_cc.h
     PATHS ${NUWRO}/include)
 
   find_path(NuWro_LIB_DIR
-    NAMES event1.so
+    NAMES libevent.so
     PATHS ${NUWRO}/lib)
 
   find_package_handle_standard_args(NuWro
